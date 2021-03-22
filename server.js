@@ -2,11 +2,12 @@ const express = require('express');
 const sio = require('socket.io');
 const { v4: uuidV4 } = require('uuid');
 const fs = require('fs');
+const path = require('path');
 
 const app = express();
 const server = require('https').createServer({
-    key: fs.readFileSync(__dirname+'\\certs\\server.key'),
-    cert: fs.readFileSync(__dirname+'\\certs\\server.cert'),
+    key: fs.readFileSync(path.join(__dirname,'certs','server.key')),
+    cert: fs.readFileSync(path.join(__dirname,'certs', 'server.cert')),
     requestCert: true,
     rejectUnauthorized: false
 },app);
