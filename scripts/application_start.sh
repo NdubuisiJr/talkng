@@ -1,7 +1,7 @@
 
 sudo chmod -R 777 /home/ec2-user/talkng
 
-cd /hom/ec2-user/talkng
+cd /home/ec2-user/talkng
 
 docker run -d --name talk \
 -p 3000:3000 -p 9000:9000 \
