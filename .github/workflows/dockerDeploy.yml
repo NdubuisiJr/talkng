@@ -24,3 +24,7 @@ jobs:
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+     
+    - name: AWS Create Deployment
+      run: aws deploy create-deployment --application-name talkng --deployment-config-name CodeDeployDefault.OneAtATime --deployment-group-name talkng-group --file-exists-behavior OVERWRITE --s3-location bucket=talkng-bucket,key=talkng.zip,bundleType=zip 
+    
