@@ -1,5 +1,8 @@
 #keys
 certs/
+*.cert
+*.key
+*.pem
 
 # Logs
 logs
