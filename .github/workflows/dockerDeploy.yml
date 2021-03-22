@@ -18,11 +18,9 @@ jobs:
         registry: docker.io
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-    - name: S3 Sync
-      uses: ItsKarma/aws-cli@v1.70.0
-      with:
-        args: aws deploy push --application-name talkng --description "This is a talk app" --ignore-hidden-files --s3-location s3://talkng-bucket/talkng.zip --source .
+    - name: Install aws cli
+      uses: isbang/setup-awscli@v0.1.0
+    - run: aws deploy push --application-name talkng --description "This is a talk app" --ignore-hidden-files --s3-location s3://talkng-bucket/talkng.zip --source .
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        AWS_DEFAULT_REGION: 'af-south-1'
