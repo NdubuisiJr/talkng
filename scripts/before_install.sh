@@ -1,1 +1,1 @@
-docker rm -f talk
+echo "Before installing"
