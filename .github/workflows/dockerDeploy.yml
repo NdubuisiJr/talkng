@@ -7,7 +7,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    
     steps:
     - uses: actions/checkout@v2
     - name: Build and push to dockerhub
@@ -18,15 +18,12 @@ jobs:
         registry: docker.io
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-    - uses: jakejarvis/s3-sync-action@master
+    - name: S3 Sync
+      uses: ItsKarma/aws-cli@v1.70.0
       with:
-        args: --follow-symlinks --delete --exclude '.git/*' --exclude 'node_modules/*'
+        args: s3 sync --delete --acl public-read localdir/ s3://remote-bucket/
       env:
-        AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        AWS_REGION: 'af-south-1' 
+        AWS_DEFAULT_REGION: 'af-south-1'
     - run: aws deploy push --application-name talkng --description "This is a talk app" --ignore-hidden-files --s3-location s3://talkng-bucket/talkng.zip --source .
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
