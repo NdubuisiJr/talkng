@@ -60,12 +60,10 @@ const addVideoStream = (video, stream )=>{
 const hookUpEvents = (call)=>{
     call.on('stream', (remoteStream) =>{
         console.log(remoteStream);
-        const existing = document.getElementById(remoteStream.id);
-        if(!existing){
+        //const existing = document.getElementById(remoteStream.id)
             const myVideo2 = document.createElement('video');
-            myVideo2.id=remoteStream.id;
+            //myVideo2.id=remoteStream.id;
             addVideoStream(myVideo2, remoteStream);
-        }
     });
     
     call.on('close', ()=>{
